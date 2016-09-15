@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h1.text-centre Description de l'API REST
+    p Chaque réponse de l'API est propre au type de requête et s'efforce de suivre au mieux le "pattern" REST. Si le serveur rencontre une erreur lors du traitement de votre requête, vous recevrez une réponse du type : HTTP/1.1 500 Internal Server Error. 
+    
+    h2 Clasification de la liste des stations d'une ville 
+    p Requête :
+    p GET http://localhost:3000/api/list?city= {nom de ville}&orderby= {name ou address}
+    p Réponse:
+    p Liste des stations en json
+    
+    h2 Chercher une station par nom ou par addresse 
+    p Requête :
+    p GET http://localhost:3000/api/search?city= {nom de ville}&keyWord= {name ou address}
+    p Réponse:
+    p Une station plus les velos disponibles et total des velos en json
+    
+    h2 Clasification par distance 
+    p Requête :
+    p GET http://localhost:3000/api/geo?city= {nom de ville}&location= {lat,lng}
+    p Réponse:
+    p Liste des stations plus la distance et coordonées en json
+    
+    
+    h3 Pour afficher le JSON vous devez "decommenter" res.json(...) et "commenter" res.render(...) 
+    br
+    br
+    br
+    a(href="/api") Pour lancer l'interface de l'API ici 

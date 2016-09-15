@@ -1,0 +1,98 @@
+extends layout
+
+block content
+    h1.text-centre API
+    .container-fluid
+        .row
+            .col-md-6.col-xs-6
+                h1 Chercher par nom ou par addresse
+                p http://localhost:3000/api/search?city=paris&keyWord=RIVOLI+CONCORDE
+                form(action="/api/search", method="GET")
+                   div
+                       p Ville
+                       input(type="text", name="city")
+                   div
+                       p Address ou name
+                       input(type="text", name="keyWord")
+                       br
+                   br   
+                   div
+                       input.btn.btn-primary(type="submit", value="search")
+
+                if station
+                    div
+                        h3 Nom : #{station.name}
+                        h4 Addresse : #{station.address}
+                        p Vélos disponibles : #{station.available_bikes}
+                        p Total des vélos : #{station.bike_stands}
+                        p Status : #{station.status}
+                        p Dernière mise à jour : #{station.last_update}
+
+        .row
+            .col-md-6.col-xs-6
+                h1 Classification par distance
+                p http://localhost:3000/api/geo?city=paris&location=48.866285221156055%2C2.325249045083579
+                form(action="/api/geo", method="GET")
+                   div
+                       p Ville
+                       input(type="text", name="city")
+                   div
+                       p Coordonnées - ex: latitude,longitude - L'ordre est important.
+                       input(type="text", name="location")
+                       br
+                   br  
+                   div
+                       input.btn.btn-primary(type="submit", value="search")
+
+                if location
+                  div
+                  for position in location
+                      p Latitude :#{position.latitude}
+                      p Longitude :#{position.longitude}
+                      p Distance : #{position.distance}
+
+        .row
+            .col-md-6.col-xs-6
+                h1 Classification par nom ou par addresse.
+                p http://localhost:3000/api/list?city=paris&orderby=name
+                form(action="/api/list", method="GET")
+                   div
+                       p Ville
+                       input(type="text", name="city")
+                   div
+                       p Nom ou adresse -  ex: name ou address
+                       input(type="text", name="orderby")
+                       br
+                   br
+                   div
+                       input.btn.btn-primary(type="submit", value="list")
+
+                if lists
+                  div
+                  for list in lists
+                      h3 Nom : #{list.Name}
+                      h4 Address : #{list.Address}
+
+
+        .row
+            .col-md-6.col-xs-6
+                h1 POST --> un fichier CSV
+                form(action='/api', method='post', enctype='multipart/form-data')
+                    p Ville
+                    input(type="text", name="city")
+                    input(name='file', type='file', value='file csv')
+                    br
+                    button.btn.btn-primary(type='submit') Submit
+
+
+                if lists
+                  div
+                      h3 Nom : #{lists.Name}
+                      h4 Address : #{lists.Address}
+                      
+                      
+    
+        br
+        br
+        br
+        a(href="/") Retour à la documentation
