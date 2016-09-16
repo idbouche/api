@@ -15,9 +15,12 @@ const DIR_UPLOADS = path.join(__dirname , "../uploads/");
 var Converter = require("csvtojson").Converter;
 var converter = new Converter({});
 
+/* GET home documentation*/
 router.get('/', function(req, res, next) {
   res.render('home',{title: 'API'})
 });
+
+/* GET API interface*/
 router.get('/api', function(req, res, next) {
   res.render('index',{title: 'API'})
 });
@@ -44,7 +47,6 @@ router.get('/api/search', function(req, res, next) {
       });
     }
   });
-  //res.send( { name : req.param('name'), adress : req.param('adress') });
 });
 
 /* GET the nearest  bisycle stop*/
@@ -62,6 +64,7 @@ router.get('/api/geo/', function(req, res, next) {
       throw err;
       return;
     }
+    //Find loction only.
     collection.find({},{"_id":0, "Number":0, "Name":0, "Address":0})
     .toArray(function(err, coord) {
       if (err) {
@@ -89,7 +92,6 @@ router.post('/api', function(req, res, next) {
     res.status(400).send('No files were uploaded.');
     return;
   }
-  var date = new Date().getTime();
   sampleFile = req.files.file;
   uploadPath = path.join(__dirname ,'../uploads/'+sampleFile.name);
   sampleFile.mv(uploadPath, function(err) {
@@ -97,6 +99,7 @@ router.post('/api', function(req, res, next) {
       res.status(500).send(err);
     }
     else {
+      //Convert CSV to JSON.
       converter.fromFile(uploadPath,function(err,result){
         if(err){
           throw err
@@ -109,6 +112,7 @@ router.post('/api', function(req, res, next) {
             return
           }
           collection.createIndex( { Name: "text", Address: "text" } )
+          //Delete file
           fs.unlinkSync(uploadPath);
           //res.json(result );
           res.render('index',{lists: result} );
@@ -123,14 +127,16 @@ router.get('/api/list', function(req, res, next) {
   var orderby = req.param('orderby');
   var collection = db.get().collection(req.param('city') );
   if (orderby == "name"){
+    //Find data and order by name
     collection.find().sort( { "Name": 1 } ).toArray(function(err, result) {
       if (err) {
         throw err;
       }
-      res.json(result );
-      //res.render('index',{lists: result} );
+      //res.json(result );
+      res.render('index',{lists: result} );
     });
   }else if (orderby == "address"){
+    //Find data and order by address
     collection.find().sort( { "Address": 1 } ).toArray(function(err, result) {
       if (err) {
         throw err;
