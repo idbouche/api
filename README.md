@@ -4,7 +4,7 @@ Chaque réponse de l'API est propre au type de requête et s'efforce de suivre a
 
 ##Install
 
-$ cd api
+$ cd api-master
 
 $ npm i
 
