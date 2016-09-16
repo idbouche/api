@@ -6,7 +6,7 @@ Chaque réponse de l'API est propre au type de requête et s'efforce de suivre a
 
 $ cd api-master
 
-$ npm i
+$ npm i -S
 
 $ node ./bin/www
 
