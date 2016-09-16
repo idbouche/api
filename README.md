@@ -1,6 +1,14 @@
 
-#text-centre Description de l'API REST
+#Description de l'API REST
 Chaque réponse de l'API est propre au type de requête et s'efforce de suivre au mieux le "pattern" REST. Si le serveur rencontre une erreur lors du traitement de votre requête, vous recevrez une réponse du type : HTTP/1.1 500 Internal Server Error. 
+
+##Install
+
+$ cd api
+$ npm i
+$ node ./bin/www
+
+http://localhost:3000
 
 ##Clasification de la liste des stations d'une ville 
 ###Requête :
