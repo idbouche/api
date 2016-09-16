@@ -4,9 +4,11 @@ Chaque réponse de l'API est propre au type de requête et s'efforce de suivre a
 
 ##Install
 
-.$ cd api
-.$ npm i
-.$ node ./bin/www
+$ cd api
+
+$ npm i
+
+$ node ./bin/www
 
 http://localhost:3000
 
